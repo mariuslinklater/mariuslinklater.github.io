@@ -1,5 +1,5 @@
-// Project Title
-// Your Name
+// Interactive Scene
+// Marius Linklater
 // Date
 //
 // Extra for Experts:
