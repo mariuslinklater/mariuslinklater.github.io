@@ -1,7 +1,7 @@
 # CS30 Stuff
 
 ## Demos
-- to be added
+-[Image Demo](03-images)
 
 ## Assignments
 - add here
