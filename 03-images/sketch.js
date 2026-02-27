@@ -8,7 +8,7 @@
 let sethKinstleImg;
 
 function preload() {
-  sethKinstleImg = loadImage('sethKinstle.jpg')
+  sethKinstleImg = loadImage('sethKinstle.jpg');
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -17,5 +17,5 @@ function setup() {
 
 function draw() {
   background(220);
-  image(sethKinstleImg, mouseX, mouseY, sethKinstleImg.width * 2, sethKinstleImg.height * 2)
+  image(sethKinstleImg, mouseX, mouseY, sethKinstleImg.width * 2, sethKinstleImg.height * 2);
 }
