@@ -5,12 +5,28 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let screen; // changes between menu and game and stuff, state variable
-let difficulty = 'easy';
+let screen;
+let difficulty = 10000;
+let diffImage = 0;
+let waitTime = 5000;
+let introImage = 0;
+let lastSwitch;
+
+function preload(){
+  characterImage = loadImage('character.png');
+  aisle1Image = loadImage('storeAisle1.jpg');
+  aisle2Image = loadImage('storeAisle2.jpg');
+  aisle3Image = loadImage('storeAisle3.jpg');
+  menuImage = loadImage('menu.jpg');
+  easyModeImage = loadImage('menuEasyMode.png');
+  hardModeImage = loadImage('hardMenu.jpg');
+  superHardModeImage = loadImage('superHardMenu.jpg');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   screen = 'menu';
+  lastSwitch = millis();
 }
 
 let character = {
@@ -24,16 +40,7 @@ let aisle1Image;
 let aisle2Image;
 let aisle3Image;
 
-function preload(){
-  characterImage = loadImage('character.png');
-  aisle1Image = loadImage('storeAisle1.jpg');
-  aisle2Image = loadImage('storeAisle2.jpg');
-  aisle3Image = loadImage('storeAisle3.jpg');
-  menuImage = loadImage('menu.jpg');
-  easyModeImage = loadImage('menuEasyMode.png');
-  hardModeImage = loadImage('hardMenu.jpg');
-  superHardModeImage = loadImage('superHardMenu.jpg');
-}
+
 
 function draw() {
   drawBackground();
@@ -59,20 +66,81 @@ function drawBackground() {
 }
 
 function drawMenu(){
- let diffImage = easyModeImage
  image(menuImage, 0, 0, windowWidth, windowHeight);
- image(diffImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+ diffButton();
  if (mouseIsPressed && mouseX > windowWidth/7 && mouseX < windowWidth/2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7) {
-    screen = 'aisle1'
+    screen = 'intro'
  }
  if (mouseIsPressed && mouseX > windowWidth/2 && mouseX < windowWidth/1.2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7){
-  diffImage = hardModeImage
+  diffImage ++;
+  if (diffImage > 2){
+    diffImage = 0;
+  }
+ 
+
  }
 }
 
-function introSequence() {
-
+function diffButton() {
+ if (diffImage === 0) {
+  image(easyModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+  difficulty =  30000
+ }
+  if (diffImage === 1) {
+  image(hardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+  difficulty = 20000
+ }
+  if (diffImage === 2) {
+  image(superHardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+  difficulty = 10000
+ }
 }
+ 
+
+
+function introSequence() {
+  if (introImage === 0 && millis() >= lastSwitch + waitTime) {
+     introImage++;
+     lastSwitch = millis();
+   }
+  if (introImage === 1 && millis() > lastSwitch + waitTime) {
+     introImage++;
+     lastSwitch = millis();
+   }
+  if (introImage === 2 && millis() > lastSwitch + waitTime) {
+     introImage++;
+     lastSwitch = millis();
+   }
+  if (introImage === 3 && millis() > lastSwitch + waitTime) {
+     introImage++;
+     lastSwitch = millis();
+   }
+  if (introImage === 4 && millis() > lastSwitch + waitTime) {
+     introImage++;
+     lastSwitch = millis();
+   }
+  if (introImage === 5) {
+     screen = "aisle1" 
+   }
+    introScreen();
+}
+function introScreen() {
+  if (introImage === 0) {
+  image(easyModeImage, 0, 0, windowWidth, windowHeight)
+ }
+  if (introImage === 1) {
+  image(hardModeImage, 0, 0, windowWidth, windowHeight)
+ }
+  if (introImage === 2) {
+  image(superHardModeImage, 0, 0, windowWidth, windowHeight)
+ }
+   if (introImage === 3) {
+  image(superHardModeImage, 0, 0, windowWidth, windowHeight)
+ }
+   if (introImage === 4) {
+  image(superHardModeImage, 0, 0, windowWidth, windowHeight)
+ }
+  }
 
 function drawAisle1() {
   image(aisle1Image, 0, 0, windowWidth, windowHeight);
