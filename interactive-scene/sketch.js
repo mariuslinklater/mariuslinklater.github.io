@@ -11,6 +11,7 @@ let diffImage = 0;
 let waitTime = 5000;
 let introImage = 0;
 let lastSwitch;
+let gulpPlayed = false;
 
 function preload(){
   characterImage = loadImage('character.png');
@@ -21,6 +22,11 @@ function preload(){
   easyModeImage = loadImage('menuEasyMode.png');
   hardModeImage = loadImage('hardMenu.jpg');
   superHardModeImage = loadImage('superHardMenu.jpg');
+  intro1Image = loadImage('intro1.jpg');
+  intro2Image = loadImage('intro2.jpg');
+  intro3Image = loadImage('intro3.jpg');
+  intro4Image = loadImage('intro4.jpg');
+  gulpNoise = loadSound('gulp.mp3');
 }
 
 function setup() {
@@ -115,32 +121,30 @@ function introSequence() {
      introImage++;
      lastSwitch = millis();
    }
-  if (introImage === 4 && millis() > lastSwitch + waitTime) {
-     introImage++;
-     lastSwitch = millis();
-   }
-  if (introImage === 5) {
+
+  if (introImage === 4) {
      screen = "aisle1" 
    }
     introScreen();
 }
 function introScreen() {
   if (introImage === 0) {
-  image(easyModeImage, 0, 0, windowWidth, windowHeight)
+  image(intro1Image, 0, 0, windowWidth, windowHeight)
  }
   if (introImage === 1) {
-  image(hardModeImage, 0, 0, windowWidth, windowHeight)
+  image(intro2Image, 0, 0, windowWidth, windowHeight)
  }
   if (introImage === 2) {
-  image(superHardModeImage, 0, 0, windowWidth, windowHeight)
+  image(intro3Image, 0, 0, windowWidth, windowHeight)
  }
    if (introImage === 3) {
-  image(superHardModeImage, 0, 0, windowWidth, windowHeight)
- }
-   if (introImage === 4) {
-  image(superHardModeImage, 0, 0, windowWidth, windowHeight)
- }
+  image(intro4Image, 0, 0, windowWidth, windowHeight)
+  if (!gulpPlayed) {
+    gulpNoise.play();
+    gulpPlayed = true
   }
+ }
+}
 
 function drawAisle1() {
   image(aisle1Image, 0, 0, windowWidth, windowHeight);
