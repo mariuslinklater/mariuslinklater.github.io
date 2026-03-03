@@ -195,7 +195,7 @@ function drawAisle3() {
 function drawCharacter() {
   if (screen !== 'menu' && screen !== 'intro') {
     image(characterImage, character.characterX, character.characterY, 360* (character.characterY/350),  540 * (character.characterY/350) );
-    if(keyIsDown(87) && (character.characterY > windowHeight/2 - 400 * (character.characterY/350))) { //w
+    if(keyIsDown(87) && character.characterY > windowHeight/2 - 400 * (character.characterY/350)) { //w
       character.characterY -= character.speed/1.6;
     }
     if(keyIsDown(83)) { //s

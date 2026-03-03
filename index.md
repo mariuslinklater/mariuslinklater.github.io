@@ -3,7 +3,7 @@
 ## Demos
 -[Image Demo](03-images)
 
--[Arrays demo]
+-[ball array](04-ball-array)
 
 ## Assignments
-- add here
+- [Interavctive Scene](interactive-scene)
