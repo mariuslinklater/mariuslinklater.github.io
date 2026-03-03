@@ -54,9 +54,6 @@ let aisle3Image;
 function draw() {
   drawBackground();
   drawCharacter();
-  if (screen !== 'menu' && screen !== 'intro') {
-    generateSquare();
-  }
 }
 
 // this is what decides what screen youre on
@@ -98,15 +95,15 @@ function drawMenu(){
 // lets the difficuty change when you press the button
 function diffButton() {
   if (diffImage === 0) {
-    image(easyModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+    image(easyModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
     difficulty =  30000;
   }
   if (diffImage === 1) {
-    image(hardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+    image(hardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
     difficulty = 20000;
   }
   if (diffImage === 2) {
-    image(superHardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7)
+    image(superHardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
     difficulty = 10000;
   }
 }
