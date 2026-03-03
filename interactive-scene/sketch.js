@@ -12,8 +12,6 @@ let waitTime = 5000;
 let introImage = 0;
 let lastSwitch;
 let gulpPlayed = false;
-let squareThere = false;
-let squareLocationPicked = false;
 
 
 // loads images and sounds
@@ -190,13 +188,6 @@ function drawAisle3() {
     screen = "aisle2";
     character.characterX = windowWidth - 100;
   }
-}
-
-//generates a square at a randm spot in the store
-function generateSquare() {
-  fill('white');
-  rect(squareX, squareY, 100, 100);
-
 }
 
 
