@@ -6,7 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let theTiles = [];
-const THE_SIZE = [];
+const THE_SIZE = 25;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
