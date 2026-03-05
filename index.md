@@ -8,5 +8,7 @@
 -[generative art demo](05-art)
 
 ## Assignments
-- [Interavctive Scene](interactive-scene)
+- [Interactive Scene](interactive-scene)
+
+- [Arrays and Object Notation](array-object)
 
