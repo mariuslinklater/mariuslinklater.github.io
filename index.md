@@ -5,8 +5,8 @@
 
 -[ball array](04-ball-array)
 
+-[generative art demo](05-art)
+
 ## Assignments
 - [Interavctive Scene](interactive-scene)
 
-
-[def]: 04-ball-array
