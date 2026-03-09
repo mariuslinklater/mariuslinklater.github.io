@@ -14,6 +14,26 @@ let lastSwitch;
 let gulpPlayed = false;
 let squaresFound = 0;
 
+// NEW
+let map = []; // new array thing for map generation
+let inventory = []; // array for the characters inventory
+let milk = {       // object notation --- objects the character can find that will be added to the inventory
+  x: 2,
+  y: 2,
+  isfound: false
+};
+
+let bread = {
+  x: 2,
+  y: 2,
+  isfound: false
+};
+let eggs = {
+  x: 2,
+  y: 2,
+  isfound: false
+};
+
 // loads images and sounds
 function preload(){
   characterImage = loadImage('character.png');
@@ -35,13 +55,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   screen = 'menu';
   lastSwitch = millis();
-  noStroke();
 }
 
-let character = {
-  characterX: 400,
-  characterY: 400,
+let character = { // object notation, this was already there but I added some more things
+  X: 400,
+  Y: 400,
   speed: 12
+
 };
 
 let characterImage;
@@ -54,6 +74,7 @@ let aisle3Image;
 function draw() {
   drawBackground();
   drawCharacter();
+  drawMapButton();
 }
 
 // this is what decides what screen youre on
@@ -87,8 +108,6 @@ function drawMenu(){
     if (diffImage > 2){
       diffImage = 0;
     }
- 
-
   }
 }
 
@@ -157,9 +176,9 @@ function introScreen() {
 // sets background for when youre in aisle 1 and lets you go from aisle to aisle
 function drawAisle1() {
   image(aisle1Image, 0, 0, windowWidth, windowHeight);
-  if (character.characterX > windowWidth) {
+  if (character.X > windowWidth) {
     screen = "aisle2";
-    character.characterX = 100;
+    character.X = 100;
   }
 }
 
@@ -167,23 +186,23 @@ function drawAisle1() {
 function drawAisle2() {
   image(aisle2Image, 0, 0, windowWidth, windowHeight);
   
-  if (character.characterX > windowWidth) {
+  if (character.X > windowWidth) {
     screen = "aisle3";
-    character.characterX = 100;
+    character.X = 100;
   }
 
-  if (character.characterX < 0) {
+  if (character.X < 0) {
     screen = "aisle1";
-    character.characterX = windowWidth - 100;
+    character.X = windowWidth - 100;
   }
 }
 
 //sets background for when youre in aisle 3 and lets you go from aisle to aisle
 function drawAisle3() {
   image(aisle3Image, 0, 0, windowWidth, windowHeight);
-  if (character.characterX < 0 - 100) {
+  if (character.X < 0 - 100) {
     screen = "aisle2";
-    character.characterX = windowWidth - 100;
+    character.X = windowWidth - 100;
   }
 }
 
@@ -191,16 +210,36 @@ function drawAisle3() {
 // draws the player and lets them move around
 function drawCharacter() {
   if (screen !== 'menu' && screen !== 'intro') {
-    image(characterImage, character.characterX, character.characterY, 360* (character.characterY/350),  540 * (character.characterY/350) );
-    if(keyIsDown(87) && character.characterY > windowHeight/2 - 400 * (character.characterY/350)) { //w
-      character.characterY -= character.speed/1.6;
+    image(characterImage, character.X, character.Y, 360* (character.Y/350),  540 * (character.Y/350) );
+    if(keyIsDown(87) && character.Y > windowHeight/2 - 400 * (character.Y/350)) { //w
+      character.Y -= character.speed/1.6;
     }
     if(keyIsDown(83)) { //s
-      character.characterY += character.speed/1.6;
+      character.Y += character.speed/1.6;
     }  if(keyIsDown(68)) { //d
-      character.characterX += character.speed;
+      character.X += character.speed;
     }  if(keyIsDown(65)) { //a
-      character.characterX -= character.speed;
+      character.X -= character.speed;
     }
   } 
+}
+
+// NEW
+// draws map, uses arrays
+function drawMapButton() {
+  if (screen !== 'menu' && screen !== 'intro') {
+      
+  }
+}
+
+// NEW
+//handles the inventory
+function inventoryThing() {
+
+}
+
+// NEW
+// show missions you have and stuff
+function missions() {
+  
 }
