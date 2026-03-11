@@ -3,7 +3,7 @@
 // March 5/26
 // most of this stuff is from the interactive scene, but I will show where I put new things of changed old stuff
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// included audio in intro, included animation for opening map, 
 
 let screen;
 let difficulty = 10000;
@@ -96,22 +96,26 @@ function drawBackground() {
   }
 }
 
-// chages background to menu and puts buttons
+// changes background to menu and puts buttons
 function drawMenu(){
   image(menuImage, 0, 0, windowWidth, windowHeight);
   diffButton();
-  if (mouseIsPressed && mouseX > windowWidth/7 && mouseX < windowWidth/2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7) {
-    screen = 'intro';
-  }
-  if (mouseIsPressed && mouseX > windowWidth/2 && mouseX < windowWidth/1.2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7){
+}
+
+// NEW-ISH changed the difficulty button thing to fix the fast changing
+// lets the difficulty change when you press the button
+function mousePressed() {
+  if (mouseX > windowWidth/2 && mouseX < windowWidth/1.2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7) {
     diffImage ++;
     if (diffImage > 2){
       diffImage = 0;
     }
   }
+  if (mouseX > windowWidth/7 && mouseX < windowWidth/2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7) {
+    screen = 'intro';
+  }
 }
 
-// lets the difficuty change when you press the button
 function diffButton() {
   if (diffImage === 0) {
     image(easyModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
@@ -238,8 +242,3 @@ function inventoryThing() {
 
 }
 
-// NEW
-// show missions you have and stuff
-function missions() {
-  
-}
