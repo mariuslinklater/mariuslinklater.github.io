@@ -1,6 +1,6 @@
 // Arrays and Object Notation
 // Marius Linklater
-// March 5/26
+// March 5 2026
 // most of this stuff is from the interactive scene, but I will show where I put new things of changed old stuff
 // Extra for Experts:
 // included audio in intro, included animation for opening map, 
@@ -49,6 +49,7 @@ function preload(){
   intro3Image = loadImage('intro3.jpg');
   intro4Image = loadImage('intro4.jpg');
   gulpNoise = loadSound('gulp.mp3');
+  MapIconImage = loadImage('mapIcon.png');
 }
 
 function setup() {
@@ -104,6 +105,7 @@ function drawMenu(){
 
 // NEW-ISH changed the difficulty button thing to fix the fast changing
 // lets the difficulty change when you press the button
+// other buttons made aswell
 function mousePressed() {
   if (mouseX > windowWidth/2 && mouseX < windowWidth/1.2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7) {
     diffImage ++;
@@ -113,6 +115,9 @@ function mousePressed() {
   }
   if (mouseX > windowWidth/7 && mouseX < windowWidth/2 && mouseY > windowHeight/3 && mouseY < windowHeight/1.7) {
     screen = 'intro';
+  }
+  if (mouseX > 0 && mouseX < 250 && mouseY > windowHeight - 250 && mouseY < windowHeight) {
+    mapItUp();
   }
 }
 
@@ -131,30 +136,19 @@ function diffButton() {
   }
 }
  
-
+// NEW-ISH chnged this into a while loop, takes way less code now
 // does the intro story when you press start
 function introSequence() {
-  if (introImage === 0 && millis() >= lastSwitch + waitTime) {
-    introImage++;
-    lastSwitch = millis();
+  let introLoop = 0;
+  while (introLoop < 5) {
+    introScreen();
+    if (millis() >= lastSwitch + waitTime) {
+      introImage++;  
+      lastSwitch = millis();
+    }
+    introLoop++;
   }
-  if (introImage === 1 && millis() > lastSwitch + waitTime) {
-    introImage++;
-    lastSwitch = millis();
-  }
-  if (introImage === 2 && millis() > lastSwitch + waitTime) {
-    introImage++;
-    lastSwitch = millis();
-  }
-  if (introImage === 3 && millis() > lastSwitch + waitTime) {
-    introImage++;
-    lastSwitch = millis();
-  }
-
-  if (introImage === 4) {
-    screen = "aisle1"; 
-  }
-  introScreen();
+  
 }
 
 // goes along with introSequence to change the background
@@ -174,6 +168,9 @@ function introScreen() {
       gulpNoise.play();
       gulpPlayed = true;
     }
+  }
+  if (introImage === 4) {
+    screen = 'aisle1';
   }
 }
 
@@ -232,10 +229,12 @@ function drawCharacter() {
 // draws map, uses arrays
 function drawMapButton() {
   if (screen !== 'menu' && screen !== 'intro') {
-      
+    image(MapIconImage, 20, windowHeight - 250);    
   }
 }
+function MapItUp() {
 
+}
 // NEW
 //handles the inventory
 function inventoryThing() {
