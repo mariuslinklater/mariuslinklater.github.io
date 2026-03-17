@@ -7,6 +7,8 @@
 
 -[generative art demo](05-art)
 
+-[Perlin Noise](06-noise)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
