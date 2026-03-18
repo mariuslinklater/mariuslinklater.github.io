@@ -3,79 +3,79 @@
 // March 5 2026
 // most of this stuff is from the interactive scene, but I will show where I put new things of changed old stuff
 // Extra for Experts:
-// included audio in intro, included animation for opening map, 
+// loading fonts for the menu, the assets folder which would be like paths, 
 
 let screen;
-let difficulty = 10000;
+let difficulty = 1;
 let diffImage = 0;
 let waitTime = 5000;
 let introImage = 0;
 let lastSwitch;
 let gulpPlayed = false;
-let squaresFound = 0;
+let showInventory = false;
+let itemSelected = 0;
+let itemsPossible = [];
+let inventory = [];
 
-// NEW
-let map = []; // new array thing for map generation
-let inventory = []; // array for the characters inventory
-let milk = {       // object notation --- objects the character can find that will be added to the inventory
-  x: 2,
-  y: 2,
-  isfound: false
-};
-
-let bread = {
-  x: 2,
-  y: 2,
-  isfound: false
-};
-let eggs = {
-  x: 2,
-  y: 2,
-  isfound: false
-};
 
 // loads images and sounds
 function preload(){
-  characterImage = loadImage('character.png');
-  aisle1Image = loadImage('storeAisle1.jpg');
-  aisle2Image = loadImage('storeAisle2.jpg');
-  aisle3Image = loadImage('storeAisle3.jpg');
-  menuImage = loadImage('menu.jpg');
-  easyModeImage = loadImage('menuEasyMode.png');
-  hardModeImage = loadImage('hardMenu.jpg');
-  superHardModeImage = loadImage('superHardMenu.jpg');
-  intro1Image = loadImage('intro1.jpg');
-  intro2Image = loadImage('intro2.jpg');
-  intro3Image = loadImage('intro3.jpg');
-  intro4Image = loadImage('intro4.jpg');
-  gulpNoise = loadSound('gulp.mp3');
-  MapIconImage = loadImage('mapIcon.png');
+  characterImage = loadImage('assets/character.png');
+  aisle1Image = loadImage('assets/storeAisle1.jpg');
+  aisle2Image = loadImage('assets/storeAisle2.jpg');
+  aisle3Image = loadImage('assets/storeAisle3.jpg');
+  menuImage = loadImage('assets/menu.jpg');
+  easyModeImage = loadImage('assets/menuEasyMode.png');
+  hardModeImage = loadImage('assets/hardMenu.jpg');
+  superHardModeImage = loadImage('assets/superHardMenu.jpg');
+  intro1Image = loadImage('assets/intro1.jpg');
+  intro2Image = loadImage('assets/intro2.jpg');
+  intro3Image = loadImage('assets/intro3.jpg');
+  intro4Image = loadImage('assets/intro4.jpg');
+  gulpNoise = loadSound('assets/gulp.mp3');
+  mapIconImage = loadImage('assets/mapIcon.png');
+  eggsImage = loadImage('assets/rggs.jpg');
+  milkImage = loadImage('assets/milk.jpg');
+  breadImage = loadImage('assets/bread.jpg');
+  font = loadFont('SHPinscher-Regular.otf');
+  winImage = loadImage('assets/winScreen.jpg')
+  loseImage = loadImage('assets/loseScreen.jpg')
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   screen = 'menu';
   lastSwitch = millis();
+  
+
+  // NEW 
+  // object notation + array for the characters inventory, items have a name, a size, a weight, a cost, and an X, Y, W and H for collisons
+  itemsPossible = [{name:'bread', size:'medium', weight:'170g', cost:'3.50$', X:random(100,windowWidth - breadImage.width/4), Y:random(windowHeight/2, windowHeight - breadImage.height/4), 
+                    W:breadImage.width/4, H:breadImage.height/4, image:breadImage, found:false},   
+                  {name:'milk', size:'large', weight:'4.5kg', cost:'4$', X:random(100,windowWidth - milkImage.width/5), Y:random(windowHeight/2, windowHeight - milkImage.height/5), 
+                    W:milkImage.width/5, H:milkImage.height/5, image:milkImage, found:false},
+                   {name:'eggs', size:'small', weight:'700g', cost:'3$', X:random(100,windowWidth - eggsImage.width), Y:random(windowHeight/2, windowHeight - eggsImage.height),
+                    W:eggsImage.width, H:eggsImage.height, image:eggsImage, found:false} ];
 }
 
-let character = { // object notation, this was already there but I added some more things
+let character = {
   X: 400,
   Y: 400,
-  speed: 12
-
+  speed:12,
+  W: 0,
+  H: 0
 };
-
-let characterImage;
-let aisle1Image;
-let aisle2Image;
-let aisle3Image;
 
 
 
 function draw() {
   drawBackground();
   drawCharacter();
-  drawMapButton();
+  drawGroceries();
+  checkPickup();
+  if(showInventory) {
+    inventoryThing();
+  }
 }
 
 // this is what decides what screen youre on
@@ -94,6 +94,12 @@ function drawBackground() {
   }
   if (screen === 'aisle3') {
     drawAisle3();
+  }
+  if (screen === 'winScreen') {
+    drawWinScreen();
+  }
+  if (screen === 'loseScreen') {
+    drawLoseScreen();
   }
 }
 
@@ -117,22 +123,22 @@ function mousePressed() {
     screen = 'intro';
   }
   if (mouseX > 0 && mouseX < 250 && mouseY > windowHeight - 250 && mouseY < windowHeight) {
-    mapItUp();
+    inventoryThing();
   }
 }
 
 function diffButton() {
   if (diffImage === 0) {
     image(easyModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
-    difficulty =  30000;
+    difficulty =  1;
   }
   if (diffImage === 1) {
     image(hardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
-    difficulty = 20000;
+    difficulty = 2;
   }
   if (diffImage === 2) {
     image(superHardModeImage, windowWidth/2, windowHeight/1.59, windowWidth/6, windowHeight/7.7);
-    difficulty = 10000;
+    difficulty = 3;
   }
 }
  
@@ -178,8 +184,19 @@ function introScreen() {
 function drawAisle1() {
   image(aisle1Image, 0, 0, windowWidth, windowHeight);
   if (character.X > windowWidth) {
-    screen = "aisle2";
-    character.X = 100;
+    if (difficulty === 1) {
+      if (inventory.length = 3){
+        screen = 'winScreen';
+      }
+      else {
+        screen = 'loseScreen';
+      }
+    }
+    else {
+      screen = "aisle2";
+      character.X = 100; 
+    }
+ 
   }
 }
 
@@ -188,8 +205,19 @@ function drawAisle2() {
   image(aisle2Image, 0, 0, windowWidth, windowHeight);
   
   if (character.X > windowWidth) {
-    screen = "aisle3";
-    character.X = 100;
+    if (difficulty === 2){
+      if (inventory.length = 3){
+        screen = 'winScreen';
+      }
+      else {
+        screen = 'loseScreen';
+      }
+    }
+    else {
+      screen = "aisle3";
+      character.X = 100;  
+    }
+
   }
 
   if (character.X < 0) {
@@ -203,15 +231,37 @@ function drawAisle3() {
   image(aisle3Image, 0, 0, windowWidth, windowHeight);
   if (character.X < 0 - 100) {
     screen = "aisle2";
-    character.X = windowWidth - 100;
+    character.X = windowWidth - 100; 
+  }
+    if (character.X > windowWidth) {
+    if (difficulty === 3){
+      if (inventory.length = 3){
+        screen = 'winScreen';
+      }
+      else {
+        screen = 'loseScreen';
+      }
+    }
+
   }
 }
 
+function drawWinScreen() {
+  image(winImage, 0, 0, windowWidth, windowHeight);
+}
+
+function drawLoseScreen() {
+    image(loseImage, 0, 0, windowWidth, windowHeight);
+}
 
 // draws the player and lets them move around
 function drawCharacter() {
-  if (screen !== 'menu' && screen !== 'intro') {
+  if (screen !== 'menu' && screen !== 'intro' && screen !== 'winScreen') {
     image(characterImage, character.X, character.Y, 360* (character.Y/350),  540 * (character.Y/350) );
+    character.W =  360* (character.Y/350);
+    character.H =  540 * (character.Y/350);
+
+  if(!showInventory) {
     if(keyIsDown(87) && character.Y > windowHeight/2 - 400 * (character.Y/350)) { //w
       character.Y -= character.speed/1.6;
     }
@@ -222,22 +272,82 @@ function drawCharacter() {
     }  if(keyIsDown(65)) { //a
       character.X -= character.speed;
     }
+  }
   } 
 }
 
-// NEW
-// draws map, uses arrays
-function drawMapButton() {
-  if (screen !== 'menu' && screen !== 'intro') {
-    image(MapIconImage, 20, windowHeight - 250);    
+function keyPressed() {
+  if (key === 'e' && screen !== 'menu' && screen !== 'intro' && screen !== 'winScreen') {
+      showInventory = !showInventory;
+  }
+  if (showInventory && inventory.length > 0) {
+    if (key === 'd') {
+      itemSelected++;
+      if (itemSelected >= inventory.length) {
+        itemSelected = 0;
+      }
+    }
+    if (key === 'a') {
+      itemSelected--;
+      if (itemSelected < 0) {
+        itemSelected = inventory.length - 1;
+      }
+    }
   }
 }
-function MapItUp() {
 
-}
 // NEW
-//handles the inventory
+//handles the inventory 
 function inventoryThing() {
+  fill(30);
+  rect(0, 0, windowWidth/2, windowHeight);
+  textFont(font);
+  textSize(50);
 
+  for(let i = 0; i < inventory.length; i++) {  //writes the names of what you have in your inventory, highlights which item you are currently on
+    let textX = 100 + i * 200;
+    if(i === itemSelected){
+      fill('green');
+    }
+    else {
+      fill('white');
+    }
+    text(inventory[i].name, textX, windowHeight/8);
+  
+  }
+  if (inventory.length > 0) {                   //writes the stats of the item you have selected along with an image
+    let item = inventory[itemSelected];
+
+    fill(255);
+    text("Size: " + item.size, 100, windowHeight/8 + 200);
+    text("Weight: " + item.weight, 100, windowHeight/8 +400);
+    text("Cost: " + item.cost, 100, windowHeight/8 + 600);
+    image(item.image, 400,300, item.W, item.H);
+  }
 }
 
+//NEW
+// draws the items our character is looking for
+function drawGroceries() {
+  if (screen ==='aisle1') {
+    for (let i = 0; i < itemsPossible.length; i++) {
+      image(itemsPossible[i].image, itemsPossible[i].X, itemsPossible[i].Y, itemsPossible[i].W, itemsPossible[i].H);
+    }
+  }
+}
+
+ 
+//NEW
+//checks if character and any items are touching, if they are it adds the item to inventory and takes it from itemsPossible
+function checkPickup() { 
+  for (let i = itemsPossible.length - 1; i >= 0; i--) {
+    let item = itemsPossible[i];
+    if (character.X - character.W/2 < item.X + item.W/2 && //check left boundary
+      character.X + character.W/2 > item.X - item.W/2 && //check right boundary
+      character.Y - character.H/2 < item.Y + item.H/2 && //check top boundary
+      character.Y + character.H/2 > item.Y - item.H/2) { //check bottom boundary
+      inventory.push(item);       
+      itemsPossible.splice(i,1);
+    }
+  }
+}
