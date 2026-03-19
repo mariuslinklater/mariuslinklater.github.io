@@ -9,6 +9,8 @@
 
 -[Perlin Noise](06-noise)
 
+-[2d arrays](07-2D-array)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
