@@ -11,6 +11,8 @@
 
 -[2d arrays](07-2D-array)
 
+ -[Rectangular grid](08-rect-grid)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
