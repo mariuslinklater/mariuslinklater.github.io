@@ -97,7 +97,7 @@ function toggleCell(x, y) {
 function displayGrid() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      if ( grid[y][x] === 0) {
+      if (grid[y][x] === 0) {
         fill("white");
       }
       else if (grid[y][x] === 1) {

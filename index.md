@@ -20,3 +20,4 @@
 
 - [Arrays and Object Notation](array-object)
 
+- [Grid based project](grid-based)

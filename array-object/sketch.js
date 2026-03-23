@@ -185,7 +185,7 @@ function drawAisle1() {
   image(aisle1Image, 0, 0, windowWidth, windowHeight);
   if (character.X > windowWidth) {
     if (difficulty === 1) {
-      if (inventory.length = 3){
+      if (inventory.length === 3){
         screen = 'winScreen';
       }
       else {
@@ -206,7 +206,7 @@ function drawAisle2() {
   
   if (character.X > windowWidth) {
     if (difficulty === 2){
-      if (inventory.length = 3){
+      if (inventory.length === 3){
         screen = 'winScreen';
       }
       else {
@@ -233,9 +233,9 @@ function drawAisle3() {
     screen = "aisle2";
     character.X = windowWidth - 100; 
   }
-    if (character.X > windowWidth) {
+  if (character.X > windowWidth) {
     if (difficulty === 3){
-      if (inventory.length = 3){
+      if (inventory.length === 3){
         screen = 'winScreen';
       }
       else {
@@ -251,7 +251,7 @@ function drawWinScreen() {
 }
 
 function drawLoseScreen() {
-    image(loseImage, 0, 0, windowWidth, windowHeight);
+  image(loseImage, 0, 0, windowWidth, windowHeight);
 }
 
 // draws the player and lets them move around
@@ -261,24 +261,24 @@ function drawCharacter() {
     character.W =  360* (character.Y/350);
     character.H =  540 * (character.Y/350);
 
-  if(!showInventory) {
-    if(keyIsDown(87) && character.Y > windowHeight/2 - 400 * (character.Y/350)) { //w
-      character.Y -= character.speed/1.6;
+    if(!showInventory) {
+      if(keyIsDown(87) && character.Y > windowHeight/2 - 400 * (character.Y/350)) { //w
+        character.Y -= character.speed/1.6;
+      }
+      if(keyIsDown(83)) { //s
+        character.Y += character.speed/1.6;
+      }  if(keyIsDown(68)) { //d
+        character.X += character.speed;
+      }  if(keyIsDown(65)) { //a
+        character.X -= character.speed;
+      }
     }
-    if(keyIsDown(83)) { //s
-      character.Y += character.speed/1.6;
-    }  if(keyIsDown(68)) { //d
-      character.X += character.speed;
-    }  if(keyIsDown(65)) { //a
-      character.X -= character.speed;
-    }
-  }
   } 
 }
 
 function keyPressed() {
   if (key === 'e' && screen !== 'menu' && screen !== 'intro' && screen !== 'winScreen') {
-      showInventory = !showInventory;
+    showInventory = !showInventory;
   }
   if (showInventory && inventory.length > 0) {
     if (key === 'd') {
