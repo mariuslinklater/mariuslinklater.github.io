@@ -13,6 +13,8 @@
 
  -[Rectangular grid](08-rect-grid)
 
+ -[Conway's Game of Life](09-game-life)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
