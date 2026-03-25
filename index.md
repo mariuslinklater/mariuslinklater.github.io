@@ -15,6 +15,8 @@
 
  -[Conway's Game of Life](09-game-life)
 
+ -[character in grid](10-character)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
