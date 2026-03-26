@@ -5,19 +5,10 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-const CELL_SIZE = 20;
-const DEAD_CELL = 0;
-const LIVE_CELL = 400;
-const BOMB_CELL = 100;
-const TOUCHING_ONE = 1; // sees how many bombs a cell is touching
-const TOUCHING_TWO = 2;
-const TOUCHING_THREE = 3;
-const TOUCHING_FOUR = 4;
-const TOUCHING_FIVE = 5;
-const TOUCHING_SIX = 6;
-const TOUCHING_SEVEN = 7;
-const TOUCHING_EIGHT = 8;
-
+const CELL_SIZE = 200;
+const GREEN_CELL = 0;
+const YELLOW_CELL = 400;
+const GREY_CELL = 100;
 let rows;
 let cols;
 let grid;
@@ -28,8 +19,8 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  rows = Math.floor(height/CELL_SIZE);
-  cols = Math.floor(width/CELL_SIZE);
+  rows = 6;
+  cols = 5;
   grid = generateRandomGrid(cols, rows);
 }
 
