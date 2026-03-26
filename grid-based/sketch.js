@@ -1,4 +1,4 @@
-// grid based project - minesweeper
+// grid based project - wordle
 // Marius Linklater
 // 3/26/2026
 //
