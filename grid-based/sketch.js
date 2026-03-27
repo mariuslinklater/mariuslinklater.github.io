@@ -3,25 +3,33 @@
 // 3/26/2026
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - getting the lines from the .txt file and turning them into an array of letters
 
-const CELL_SIZE = 200;
-const GREEN_CELL = 0;
-const YELLOW_CELL = 400;
-const GREY_CELL = 100;
+const CELL_SIZE = 120;
+const GREEN_CELL = 3;
+const YELLOW_CELL = 2;
+const GREY_CELL = 1;
+const WHITE_CELL = 0;
 let rows;
 let cols;
 let grid;
+let word;
+let allWords;
+let goalWord;
+let guesses = 0;
+let WordLetters;
 
 function preload() {
-
+  allWords = loadStrings('5-letter-words.txt'); // loads list of 5 letter words from outside text file
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rows = 6;
   cols = 5;
-  grid = generateRandomGrid(cols, rows);
+  grid = generateEmptyGrid(cols, rows);
+  goalWord = random(allWords);
+  WordLetters = goalWord.split('');   // splits word into array of letters, we didnt learn this in class
 }
 
 function draw() {
@@ -29,76 +37,36 @@ function draw() {
   displayGrid();
 }
 
-function mousePressed() {
-  let x = Math.floor(mouseX/CELL_SIZE);
-  let y = Math.floor(mouseY/CELL_SIZE);
-
-  //self
-  toggleCell(x, y);
-}
-
-function keyPressed() {
-  if (key === "r") {
-    grid = generateRandomGrid(cols, rows);
-  }
-  else if (key === "e") {
-    grid = generateEmptyGrid(cols, rows);
-  }
-  else if (key === " ") {
-    grid = takeTurn();
-  }
-}
-
-
-function toggleCell(x, y) {
-  //make sure the cell you're toggling is in the grid
-  if (x >= 0 && x < cols && y >= 0 && y < rows) {
-    if (grid[y][x] === DEAD_CELL) {
-      grid[y][x] = LIVE_CELL;
-    }
-    else if (grid[y][x] === LIVE_CELL) {
-      grid[y][x] = DEAD_CELL;
-    }
-  }
-}
-
 function displayGrid() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      if (grid[y][x] === DEAD_CELL) {
+      if (grid[y][x] === GREY_CELL) {
         fill("white");
       }
-      else if (grid[y][x] === LIVE_CELL) {
-        fill("black");
+      else if (grid[y][x] === YELLOW_CELL) {
+        fill("yellow");
+      }
+      else if (grid[y][x] === GREEN_CELL) {
+        fill('green');
+      }
+      else if (grid[y][x] === WHITE_CELL) {
+        fill('white');
       }
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
     }
   }
 }
 
-function generateRandomGrid(cols, rows) {
-  let newGrid = [];
-  for (let y = 0; y < rows; y++) {
-    newGrid.push([]);
-    for (let x = 0; x < cols; x++) {
-      if (random(100) < 10) {
-        newGrid[y].push(LIVE_CELL);
-      }
-      else {
-        newGrid[y].push(DEAD_CELL);
-      }
-    }
-  }
-  return newGrid;
-}
 
 function generateEmptyGrid(cols, rows) {
   let newGrid = [];
   for (let y = 0; y < rows; y++) {
     newGrid.push([]);
     for (let x = 0; x < cols; x++) {
-      newGrid[y].push(DEAD_CELL);
+      newGrid[y].push(GREY_CELL);
     }
   }
   return newGrid;
 }
+
+
