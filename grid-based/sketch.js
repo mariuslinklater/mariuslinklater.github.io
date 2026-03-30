@@ -3,7 +3,7 @@
 // 3/26/2026
 //
 // Extra for Experts:
-// - getting the lines from the .txt file and turning them into an array of letters
+// - getting the lines from the .txt file along with split(), includes()
 
 const CELL_SIZE = 120;
 const GREEN_CELL = 3;
@@ -16,8 +16,9 @@ let grid;
 let word;
 let allWords;
 let goalWord;
-let guesses = 0;
-let WordLetters;
+let wordLetters;
+let guess = [];
+let guessCount = 0;
 
 function preload() {
   allWords = loadStrings('5-letter-words.txt'); // loads list of 5 letter words from outside text file
@@ -29,12 +30,13 @@ function setup() {
   cols = 5;
   grid = generateEmptyGrid(cols, rows);
   goalWord = random(allWords);
-  WordLetters = goalWord.split('');   // splits word into array of letters, we didnt learn this in class
+  wordLetters = goalWord.split('');   // splits word into array of letters, we didnt learn this in class
 }
 
 function draw() {
   background(220);
   displayGrid();
+  displayGuess();
 }
 
 function displayGrid() {
@@ -69,4 +71,32 @@ function generateEmptyGrid(cols, rows) {
   return newGrid;
 }
 
+function keyPressed() {
+  if (guess.length <= 5) {
+    letter = key;
+    guess.push(letter);
+    console.log(letter);
+  }
+  if (keyCode === BACKSPACE ) {
+    guess.pop();
+  }
+  if (keyCode === ENTER) {
+    guess.pop();
+    guessCount++;
+    if (guess === goalWord) {
+      youWin();
+    }
+    guess = [];
+  }
+}
 
+function displayGuess() {
+  for(let i = 0; i < 5; i++ ) {
+    if (guess[i] === goalWord[i]) {
+      grid[guessCount][i] = GREEN_CELL;
+    }
+    if (goalWord.includes(guess[i]) && grid[guessCount][i] !== GREEN_CELL) {
+      grid[guessCount][i] = YELLOW_CELL;
+    }
+  }
+}
