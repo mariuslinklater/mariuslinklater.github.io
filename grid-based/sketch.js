@@ -42,7 +42,7 @@ function draw() {
 function displayGrid() {
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      if (grid[y][x] === GREY_CELL) {
+      if (grid[y][x] === WHITE_CELL) {
         fill("white");
       }
       else if (grid[y][x] === YELLOW_CELL) {
@@ -51,8 +51,8 @@ function displayGrid() {
       else if (grid[y][x] === GREEN_CELL) {
         fill('green');
       }
-      else if (grid[y][x] === WHITE_CELL) {
-        fill('white');
+      else if (grid[y][x] === GREY_CELL) {
+        fill('grey');
       }
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
     }
@@ -65,7 +65,7 @@ function generateEmptyGrid(cols, rows) {
   for (let y = 0; y < rows; y++) {
     newGrid.push([]);
     for (let x = 0; x < cols; x++) {
-      newGrid[y].push(GREY_CELL);
+      newGrid[y].push(WHITE_CELL);
     }
   }
   return newGrid;
@@ -78,7 +78,7 @@ function keyPressed() {
     console.log(letter);
   }
   if (keyCode === BACKSPACE ) {
-    guess.pop();
+    guess.splice(guess.length-2,2);
   }
   if (keyCode === ENTER) {
     guess.pop();
@@ -91,12 +91,15 @@ function keyPressed() {
 }
 
 function displayGuess() {
-  for(let i = 0; i < 5; i++ ) {
+  for(let i = 0; i < guess.length; i++ ) {
     if (guess[i] === goalWord[i]) {
       grid[guessCount][i] = GREEN_CELL;
     }
     if (goalWord.includes(guess[i]) && grid[guessCount][i] !== GREEN_CELL) {
       grid[guessCount][i] = YELLOW_CELL;
+    }
+    else {
+      grid[guessCount][i] = GREY_CELL;
     }
   }
 }
