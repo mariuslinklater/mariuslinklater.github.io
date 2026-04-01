@@ -5,7 +5,7 @@
 // Extra for Experts:
 // - getting the lines from the .txt file along with split(), includes()
 
-const CELL_SIZE = 120;
+const CELL_SIZE = 80;
 const GREEN_CELL = 3;
 const YELLOW_CELL = 2;
 const GREY_CELL = 1;
@@ -31,12 +31,13 @@ function setup() {
   grid = generateEmptyGrid(cols, rows);
   goalWord = random(allWords);
   wordLetters = goalWord.split('');   // splits word into array of letters, we didnt learn this in class
+  
 }
 
 function draw() {
-  background(220);
+  translate((width-cols*CELL_SIZE)/2,(height-rows*CELL_SIZE)/3);
+  background(255);
   displayGrid();
-  displayGuess();
 }
 
 function displayGrid() {
@@ -46,15 +47,15 @@ function displayGrid() {
         fill("white");
       }
       else if (grid[y][x] === YELLOW_CELL) {
-        fill("yellow");
+        fill(200,182,83);
       }
       else if (grid[y][x] === GREEN_CELL) {
-        fill('green');
+        fill(108,169,101);
       }
       else if (grid[y][x] === GREY_CELL) {
-        fill('grey');
+        fill(120,124,127);
       }
-      square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+      square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE * 0.9);
     }
   }
 }
@@ -79,10 +80,13 @@ function keyPressed() {
   }
   if (keyCode === BACKSPACE ) {
     guess.splice(guess.length-2,2);
+    grid[guessCount][guess.length - 1] = WHITE_CELL;
   }
   if (keyCode === ENTER) {
     guess.pop();
+    displayGuess();
     guessCount++;
+    
     if (guess === goalWord) {
       youWin();
     }
@@ -95,7 +99,7 @@ function displayGuess() {
     if (guess[i] === goalWord[i]) {
       grid[guessCount][i] = GREEN_CELL;
     }
-    if (goalWord.includes(guess[i]) && grid[guessCount][i] !== GREEN_CELL) {
+    else if (goalWord.includes(guess[i]) && grid[guessCount][i] !== GREEN_CELL) {
       grid[guessCount][i] = YELLOW_CELL;
     }
     else {
