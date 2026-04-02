@@ -29,6 +29,7 @@ function setup() {
   rows = 6;
   cols = 5;
   grid = generateEmptyGrid(cols, rows);
+  letterGrid = generateEmptyGrid(cols, rows);
   goalWord = random(allWords);
   wordLetters = goalWord.split('');   // splits word into array of letters, we didnt learn this in class
   
@@ -58,6 +59,7 @@ function displayGrid() {
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE * 0.9);
     }
   }
+  drawLetters();
 }
 
 
@@ -76,7 +78,7 @@ function keyPressed() {
   if (guess.length <= 5) {
     letter = key;
     guess.push(letter);
-    console.log(letter);
+    letterGrid[guessCount].push(letter);
   }
   if (keyCode === BACKSPACE ) {
     guess.splice(guess.length-2,2);
@@ -106,4 +108,16 @@ function displayGuess() {
       grid[guessCount][i] = GREY_CELL;
     }
   }
+}
+
+function drawLetters() {
+  let letterGrid = [];
+  for (let y = 0; y < rows; y++) {
+    letterGrid.push([]);
+    for (let x = 0; x < cols; x++) {
+      letterGrid[y].push('');
+      text(guess[x], letterGrid[x], letterGrid[y]);
+    }
+  }
+  
 }
