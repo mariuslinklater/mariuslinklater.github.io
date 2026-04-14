@@ -17,6 +17,8 @@
 
  -[character in grid](10-character)
 
+ -[Walker OOP Demo](12-Walker)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 

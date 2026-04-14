@@ -57,9 +57,11 @@ function displayGrid() {
         fill(120,124,127);
       }
       square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE * 0.9);
+      
+      drawLetters(x, y);
     }
   }
-  drawLetters();
+  
 }
 
 
@@ -110,14 +112,35 @@ function displayGuess() {
   }
 }
 
-function drawLetters() {
-  let letterGrid = [];
-  for (let y = 0; y < rows; y++) {
-    letterGrid.push([]);
-    for (let x = 0; x < cols; x++) {
-      letterGrid[y].push('');
-      text(guess[x], letterGrid[x], letterGrid[y]);
-    }
+
+
+function drawLetters(x, y) {
+  if (grid[y][x] === WHITE_CELL) {
+    fill('black');
   }
-  
+  else {
+    fill('white');
+  }
+  textSize(60);
+  textAlign(LEFT, TOP);
+  text(guess[x], x * CELL_SIZE + CELL_SIZE/4 , guessCount * CELL_SIZE + CELL_SIZE/5);
 }
+
+// function drawLetters() {
+//   for (let y = 0; y < rows; y++) {
+//     for (let x = 0; x < cols; x++) {
+//       if (letterGrid[y][x] === WHITE_CELL) {
+//         fill("black");
+//       }
+//       else {
+//         fill('white');
+//       }
+//       textSize(60);
+//       textAlign(LEFT, TOP);
+//       text(guess[x], letterGrid[x] * CELL_SIZE + CELL_SIZE/4 , letterGrid[y] * CELL_SIZE + CELL_SIZE/5);
+//     }
+//   }
+  
+// }
+
+//do a clone thing for the text to fix it credit zichen for idea cause the onnly grid with stuff in it is the live one
