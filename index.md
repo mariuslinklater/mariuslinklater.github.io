@@ -19,6 +19,8 @@
 
  -[Walker OOP Demo](12-Walker)
 
+-[Fireworks OOP Demo](13-Fireworks)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
