@@ -30,7 +30,11 @@ class Particle {
     this.y += this.dy;
 
     //fade away over time
-    this.opacity -= 4;
+    this.opacity --;
+  }
+
+  isDead() {
+    return this.opacity <=0;
   }
 }
 
@@ -45,8 +49,15 @@ function setup() {
 function draw() {
   background('black');
   for (let aFirework of theFireworks){
-    aFirework.update();
-    aFirework.display();
+    if (aFirework.isDead()) {
+      let index = indexOf(aFirework);
+      theFireworks.splice(index, 1);
+    }
+    else {
+      aFirework.update();
+      aFirework.display();  
+    }
+   
   }
 }
 
