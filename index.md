@@ -21,6 +21,8 @@
 
 -[Fireworks OOP Demo](13-Fireworks)
 
+-[Ball Collision OOP](14-ball-oop)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
