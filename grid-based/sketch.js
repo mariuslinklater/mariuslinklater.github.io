@@ -148,7 +148,8 @@ function displayLetters(x, y) {
       
       if (grid[y][x] === WHITE_CELL) {
         fill('black');
-      } else {
+      }
+      else {
         fill('white');
       }
 
@@ -156,7 +157,7 @@ function displayLetters(x, y) {
     }
   }
 
-   // Draw live guess
+  // Draw live guess
   for (let x = 0; x < guess.length; x++) {
     fill('black');
     text(guess[x], x * CELL_SIZE + CELL_SIZE * 0.45, guessCount * CELL_SIZE + CELL_SIZE * 0.45);

@@ -23,6 +23,8 @@
 
 -[Ball Collision OOP](14-ball-oop)
 
+-[Connected Nodes OOP](15-nodes)
+
 ## Assignments
 - [Interactive Scene](interactive-scene)
 
