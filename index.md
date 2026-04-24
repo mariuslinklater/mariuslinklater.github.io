@@ -11,19 +11,21 @@
 
 -[2d arrays](07-2D-array)
 
- -[Rectangular grid](08-rect-grid)
+-[Rectangular grid](08-rect-grid)
 
- -[Conway's Game of Life](09-game-life)
+-[Conway's Game of Life](09-game-life)
 
- -[character in grid](10-character)
+-[character in grid](10-character)
 
- -[Walker OOP Demo](12-Walker)
+-[Walker OOP Demo](12-Walker)
 
 -[Fireworks OOP Demo](13-Fireworks)
 
 -[Ball Collision OOP](14-ball-oop)
 
 -[Connected Nodes OOP](15-nodes)
+
+-[Inheritance OOP](16-inheritance)
 
 ## Assignments
 - [Interactive Scene](interactive-scene)
